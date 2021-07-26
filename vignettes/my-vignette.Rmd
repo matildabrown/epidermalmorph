@@ -1,0 +1,94 @@
+---
+title: "my-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(epidermalmorph)
+library(imager)
+```
+
+
+-load in image, look at it
+-image to poly, plot the components (with individual colours??)
+-extract features
+-look at hist from data.frame
+
+-now, multiple images
+-barplots
+-to heatmap
+-(heatmap maybe with pictoral legend?)
+-cut unreliable traits
+-cut unreliable image (Acmopyle)
+-sampling effort for those images
+
+# Input for 'epidermalmorph'
+**epidermalmorph** comes with some example images. There is on example of an unprocessed image:
+```{r}
+plot(raw.image)
+```
+
+**epidermalmorph** requires these images to be segmented (or traced) prior to analysis. This can be done manually or with some degree of automation, but requires cell wall pixels to be black (value of 0). Other cell types can be labelled by using different values (colours). Here is what that might look like: 
+
+```{r}
+plot(image1-1)
+```
+
+Our cell walls are black (value of 0), stomata are dark grey (85), subsidiary cells are light grey (170) and pavement cells are white (255). 
+
+# Extracting cell measurements
+## The '\code{image_to_poly()}' function
+Before we can measure cells, they need to be transformed from pixels to polygons:
+```{r}
+polys1.1 <- image_to_poly(dir="../data", file="image1-1.tif")
+```
+
+This gives us a list, with an object called 'cells' (our polygons) and an object called
+We can confirm that this has worked by plotting our polygons with a unique colour for each cell:
+```{r}
+#generate as many random colours as there are cells
+library(randomcoloR)
+n <- length(polys1.1$cells)
+palette <- distinctColorPalette(n)
+
+plot(polys1.1$cells, col=palette)
+```
+Great, now we can extract the measurements from it:
+```{r}
+traits1.1 <- extract_epidermal_traits(cell.polygons=polys1.1$cells, junction.points=polys1.1$junction_coords, 
+                                     cells.present = c("pavement", "stomata", "subsidiary"), 
+                                     cell.values=c(255,85,170), verbose=FALSE) 
+#this takes around 10 minutes per image
+
+traits1.1$image_data
+```
+
+
+```{r}
+
+```
+
+
+## An image with pavement cells, stomata and subsidiary
+## An image with trichomes as well
+## An image that is only partially traced
+
+# Which traits are useful for a particular group of plants? 
+In this vignette, we will use nine of these pre-traced images (three images per plant, from three plants) to demonstrate a possible workflow for **epidermalmorph**. 
+
+## Example 1
+## Example 2 
+
+# How many cells do I need to trace? 
+

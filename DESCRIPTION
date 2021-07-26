@@ -1,0 +1,35 @@
+Package: epidermalmorph
+Type: Package
+Title: Characterising 2D Morphology of Leaf Epidermal Cells
+Version: 0.1.0
+Imports:
+  conicfit,
+  fasterize,
+  igraph,
+  maptools,
+  methods,
+  pracma,
+  prevR,
+  raster,
+  Rfast,
+  rgeos,
+  sf,
+  smoothr,
+  sp,
+  spdep,
+  stars
+Author: Matilda Brown
+Maintainer: Matilda Brown <matilda.brown@utas.edu.au>
+Description: This package contains several functions to extract and describe 
+  the morphological characteristics of the leaf epidermis. Features include cell 
+  angle, number of stomatal rows, undulation index, maximum amplitude of cell 
+  wall undulations. Pavement cells can be separated according to how close to 
+  stomata they are. More details can be found in.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
