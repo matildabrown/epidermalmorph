@@ -4,27 +4,19 @@
 \alias{image_to_poly}
 \title{Convert image to SpatialPolygons}
 \usage{
-image_to_poly(dir, fname)
+image_to_poly(dir, file)
 }
 \arguments{
 \item{dir}{String. Directory for images.}
 
-\item{fname}{String. File name.
+\item{file}{String. File name.
 
 #' @return A list with components:
 \describe{
-\item{pave}{SpatialPolygonsDataFrame. Pavement cells. }
-\item{stom}{SpatialPolygonsDataFrame. Stomata (pore + guard cells).}
-\item{subs}{SpatialPolygonsDataFrame. Lateral subsidiary cells. }
+\item{cells}{SpatialPolygonsDataFrame. All cells, with values stored in a 'value' column.}
+\item{junction_coords}{Dataframe with two columns: x and y coordinates of tri-cell junctions.}
 }}
-}
-\value{
-List of SpatialPolygonsDataFrames: pavement cells, subsidiary cells and stomata.
 }
 \description{
 Convert image to SpatialPolygons
-}
-\details{
-This function assumes that the pixels are coloured in the following order
-(darkest to lightest): wall, stomate, subsidiary, pavement.
 }

@@ -2,16 +2,16 @@
 % Please edit documentation in R/get_junctions.r
 \name{get_junctions}
 \alias{get_junctions}
-\title{Get junction point coordinates from skeleton image}
+\title{Clean up junction point coordinates}
 \usage{
 get_junctions(wj)
 }
 \arguments{
-\item{wj}{Raster of cell wall skeleton.}
+\item{wj}{Coordinates}
 }
 \value{
 Some SpatialPoints
 }
 \description{
-Get junction point coordinates from skeleton image
+Clean up junction point coordinates
 }

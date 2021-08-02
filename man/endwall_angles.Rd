@@ -7,8 +7,8 @@
 endwall_angles(junction_points)
 }
 \arguments{
-\item{junction_points}{This should be a matrix of the junction points defining 
-the polygon. The first and last points are the same (i.e. the line formed by 
+\item{junction_points}{This should be a matrix of the junction points defining
+the polygon. The first and last points are the same (i.e. the line formed by
 the points is closed).}
 }
 \value{
@@ -23,11 +23,12 @@ A list with the following components:
 }
 }
 \description{
-For a set of junction points that describe a simplified cell, this function 
-extracts the left-most wall and the right-most wall and calculates their 
+For a set of junction points that describe a simplified cell, this function
+extracts the left-most wall and the right-most wall and calculates their
 slope and bearing (in radians).
 }
 \details{
 The \code{angle} outputs have been transformed to be within -90 and
  90, so that the distribution is approximately normal around 0.
+ @export
 }

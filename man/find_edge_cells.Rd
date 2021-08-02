@@ -2,34 +2,38 @@
 % Please edit documentation in R/find_edge_cells.r
 \name{find_edge_cells}
 \alias{find_edge_cells}
-\title{Find edges of image, identify which cells are on the edge and which are}
+\title{Find edges of image, identify which get.edges.from are on the edge and which are}
 \usage{
-find_edge_cells(dir, fname, cells, rotated = NULL)
+find_edge_cells(
+  get.edges.from,
+  find.edge.cells = NULL,
+  edge.buffer.width = 2,
+  rotated = NULL
+)
 }
 \arguments{
-\item{dir}{String. Directory for images.}
+\item{get.edges.from}{SpatialPolygonsDataFrame. This object will be used to define the edges.}
 
-\item{fname}{String. File name.}
+\item{find.edge.cells}{SpatialPolygonsDataFrame. This is the object that will be evaluated.
+Defaults to \code{get.edges.from} (i.e. finds which cells of
+\code{get.edges.from} lie on the edge of \code{get.edges.from} )}
 
-\item{cells}{SpatialPolygonsDataFrame or list of Spatial PolygonsDataFrames.
-See Details.}
+\item{edge.buffer.width}{Numeric. The width (in pixels) that defines the edge. Defaults to 2.}
 
 \item{rotated}{Numeric. The angle that the image has been rotated. Defaults to NULL.}
 }
 \value{
-A list with two components (see below). If \code{cells} is a list,
-returns a list of lists.
+A list with two components.
 #' \describe{
-\item{edge}{Numeric. Vector containing the indices of all edge cells.}
-\item{lose}{Numeric. Vector containing the indices of all cells on the bottom or right-hand edge.}
+\item{edge}{Numeric. Vector containing the indices of all edge get.edges.from.}
+\item{lose}{Numeric. Vector containing the indices of all get.edges.from on the
+            bottom or right-hand edge.}
 }
 }
 \description{
-Find edges of image, identify which cells are on the edge and which are
+Find edges of image, identify which get.edges.from are on the edge and which are
 }
 \details{
-The \code{cells} parameter can be the output from
-\code{image_to_poly.R}, or another list of SpatialPolygons. Note: if
-\code{cells} is a list, all items in the list should come from the same
-image (i.e. different cell types).
+The \code{get.edges.from} parameter can be the output from
+\code{image_to_poly()}.
 }
