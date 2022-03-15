@@ -24,8 +24,7 @@ Imports:
     spatialreg,
     spdep,
     stars
-Authors@R: person("Matilda", "Brown", comment=c(ORCID ="0000-0003-2536-8365")
-Maintainer: Matilda Brown <matilda.brown@utas.edu.au>
+Authors@R: person("Matilda", "Brown",role=c("aut","cre"), email="matilda.brown@utas.edu.au", comment=c(ORCID ="0000-0003-2536-8365"))
 Description: Several functions to extract and describe and analyse 
   the morphological characteristics of the leaf epidermis. Features include cell 
   angle, number of stomatal rows, undulation index, maximum amplitude of cell 
