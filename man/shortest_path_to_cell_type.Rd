@@ -7,7 +7,7 @@
 shortest_path_to_cell_type(cells, path.matrix, cell.type.value)
 }
 \arguments{
-\item{cells}{SpatialPolygonsDataFrame.}
+\item{cells}{\code{sf} object.}
 
 \item{path.matrix}{Matrix with path lengths between each pair of cells.
 Recommended to use output from \code{cell_graph_shortest_paths()}.}

@@ -1,6 +1,6 @@
 #' Find the length of the shortest path to any cell of a particular type
 #'
-#' @param cells SpatialPolygonsDataFrame.
+#' @param cells \code{sf} object.
 #' @param path.matrix Matrix with path lengths between each pair of cells.
 #' Recommended to use output from \code{cell_graph_shortest_paths()}.
 #' @param cell.type.value Numeric. The value of stomata.
@@ -17,12 +17,12 @@
 shortest_path_to_cell_type <- function(cells, path.matrix, cell.type.value){
 
   # Values
-  referenceCol <- cells[[1]]
+  referenceCol <- cells$value
 
   # Rename spatial matrix
   path.matrix <- as.data.frame(path.matrix)
   colnames(path.matrix) <- paste0(referenceCol)
-  path.matrix$id <- rownames(cells@data)
+  path.matrix$id <- rownames(cells)
 
   diag(path.matrix) <- 10000
   dist_from_stom <- Rfast::rowMins(as.matrix(path.matrix[,which(referenceCol==cell.type.value)]), value=T)

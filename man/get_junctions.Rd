@@ -4,13 +4,16 @@
 \alias{get_junctions}
 \title{Clean up junction point coordinates}
 \usage{
-get_junctions(wj)
+get_junctions(wj, buffer.width)
 }
 \arguments{
-\item{wj}{Coordinates}
+\item{wj}{Two-column numeric matrix with x and y coordinates of junction points.}
+
+\item{buffer.width}{Numeric, the distance within which two cell junctions are
+merged. Suggested value: 5 pixels (or equivalent if image is scaled)}
 }
 \value{
-Some SpatialPoints
+\code{sf MULTIPOINT} object of the cleaned junction points
 }
 \description{
 Clean up junction point coordinates

@@ -4,10 +4,12 @@
 \alias{cell_graph_shortest_paths}
 \title{Find the shortest paths between each cell}
 \usage{
-cell_graph_shortest_paths(cells)
+cell_graph_shortest_paths(cells, snap.tolerance)
 }
 \arguments{
-\item{cells}{SpatialPolygonsDataFrame.}
+\item{cells}{\code{sf} object.}
+
+\item{snap.tolerance}{Numeric. Value to buffer each cell to identify neighbours.}
 }
 \value{
 A matrix with the shortest paths between each cell

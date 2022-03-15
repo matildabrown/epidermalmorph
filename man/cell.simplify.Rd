@@ -4,13 +4,15 @@
 \alias{cell.simplify}
 \title{Get the simplified cell shape from junction points}
 \usage{
-cell.simplify(cell, cell.junctions)
+cell.simplify(cell, cell.junctions, snap.tolerance)
 }
 \arguments{
-\item{cell}{SpatialPolygon of the original cell}
+\item{cell}{Obect of class \code{sf}; the original cell}
 
-\item{cell.junctions}{sp::SpatialPoints object containing all junction points
-between cells. Can be obtained from the Analyse Skeleton function in ImageJ.}
+\item{cell.junctions}{Dataframe with two columns containing all junction points
+between cells.}
+
+\item{snap.tolerance}{Numeric. Value to buffer each cell to identify junction points.}
 }
 \value{
 An ordered matrix containing the x and y coordinates defining the simplified

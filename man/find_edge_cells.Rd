@@ -12,15 +12,15 @@ find_edge_cells(
 )
 }
 \arguments{
-\item{get.edges.from}{SpatialPolygonsDataFrame. This object will be used to define the edges.}
+\item{get.edges.from}{\code{sf} object. This object will be used to define the edges.}
 
-\item{find.edge.cells}{SpatialPolygonsDataFrame. This is the object that will be evaluated.
+\item{find.edge.cells}{\code{sf}object. This is the object that will be evaluated.
 Defaults to \code{get.edges.from} (i.e. finds which cells of
 \code{get.edges.from} lie on the edge of \code{get.edges.from} )}
 
 \item{edge.buffer.width}{Numeric. The width (in pixels) that defines the edge. Defaults to 2.}
 
-\item{rotated}{Numeric. The angle that the image has been rotated. Defaults to NULL.}
+\item{rotated}{Numeric. The angle (in degrees) that the image has been rotated. Defaults to NULL.}
 }
 \value{
 A list with two components.

@@ -27,10 +27,9 @@
 
 number_rows_stomata <- function(cells) {
 #NUMBER OF STOMATAL ROWS
-  boundbox <- raster::bbox(cells)
-  cells1 <- sf::st_as_sf(cells)
-r <- raster::raster(xmn=boundbox[1,1], xmx=boundbox[1,2], ymn=boundbox[2,1], ymx=boundbox[2,2])
-imstom <- fasterize::fasterize(cells1,r, background=0, field=colnames(cells1)[1])
+  boundbox <- sf::st_bbox(cells)
+r <- raster::raster(xmn=boundbox[1], xmx=boundbox[3], ymn=boundbox[2], ymx=boundbox[4])
+imstom <- fasterize::fasterize(cells,r, background=0, field=colnames(cells)[1])
 
 t <- table(raster::values(imstom))
 
@@ -43,9 +42,11 @@ stomdens2 <- stomdens$y*-1
 stom_row_boundaries <- stomdens$x[localMaxima(stomdens2)]
 stom_density_peaks <- stomdens$x[localMaxima(stomdens$y)]
 
-stom_centroids <- sapply(slot(cells[which(cells@data[,1]==85),], "polygons"), function(x) slot(x, "labpt"))
+stom_centroids <- suppressWarnings(
+  sf::st_coordinates(sf::st_centroid(cells[which(cells$value==85),]))
+)
 
-stom_centroids_df <- data.frame(t(stom_centroids))
+stom_centroids_df <- data.frame(stom_centroids)
 colnames(stom_centroids_df) <- c("x","y")
 
 row.wiggliness <- NULL

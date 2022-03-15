@@ -2,6 +2,11 @@
 
 `%notin%` <- Negate(`%in%`)
 
+rot = function(a) matrix(c(cos(a), sin(a), -sin(a), cos(a)), 2, 2)
+tran = function(geo, ang, center) {
+  (geo - center) * rot(ang * pi / 180) + center
+}
+
 localMaxima <- function(x) {
   # Use -Inf instead if x is numeric (non-integer)
   y <- diff(c(-.Machine$integer.max, x)) > 0L

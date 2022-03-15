@@ -1,6 +1,6 @@
 #' Grow a patch of cells
 #'
-#' @param cells SpatialPolygonsDataFrame of all cells, with edge cells removed.
+#' @param cells sf object of all cells, with edge cells removed.
 #' @param nb Object of class "nb", created from the 'spdep' function \code{poly2nb()}.
 #' @param seed Numeric. Index of first cell in patch (the 'seed' cell). Defaults to NULL.
 #' @param existing.patch Numeric. Indices of cells in the patch which is to
@@ -15,7 +15,7 @@
 
 
 grow_connected_region <- function(cells, nb, seed=NULL, existing.patch=NULL,blacklisted_cells){
-  `%notin%` <- Negate(`%in%`)
+
 
   if (is.null(seed)){
   seed <- sample(1:length(cells),1)
@@ -29,15 +29,15 @@ for (m in 1:length(seed)){
 c.i <- unique(c.i)
 c.i <- c.i[which(c.i %notin% existing.patch)]
 
-if (length(which(cells@data[c.i,1]<200))>0){
-  stomcells <- c.i[which(cells@data[c.i,1]<200)]
+if (length(which(cells$value[c.i]<200))>0){
+  stomcells <- c.i[which(cells$value[c.i]<200)]
 
   stomID <- NULL
   for (h in 1:length(stomcells)){
-    if(cells@data[stomcells[h],1]==85) {
+    if(cells$value[stomcells[h]]==85) {
       stomIDh <- stomcells[h]
     } else {
-      stomIDh <- nb[[stomcells[h]]][which(cells@data[nb[[stomcells[h]]],1]==85)]
+      stomIDh <- nb[[stomcells[h]]][which(cells$value[nb[[stomcells[h]]]]==85)]
     }
     stomID <- unique(c(stomID,stomIDh))
   }
@@ -46,7 +46,7 @@ if (length(which(cells@data[c.i,1]<200))>0){
     blacklisted_cells <- c(blacklisted_cells, stomcells)
   } else {
     for (h in 1:length(stomID)){
-      c.i <- unique(c(c.i,nb[[stomID[h]]][which(cells@data[nb[[stomID[h]]],1]<200)] ))
+      c.i <- unique(c(c.i,nb[[stomID[h]]][which(cells$value[nb[[stomID[h]]]]<200)] ))
     }
   }
   c.i <- unique(c(c.i,stomID))

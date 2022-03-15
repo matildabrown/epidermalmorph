@@ -5,7 +5,7 @@
 #'
 #'#' @return A list with components:
 #' \describe{
-#' \item{cells}{SpatialPolygonsDataFrame. All cells, with values stored in a 'value' column.}
+#' \item{cells}{sf MULTIPOLYGON. All cells, with values stored in a 'value' column.}
 #' \item{junction_coords}{Dataframe with two columns: x and y coordinates of tri-cell junctions.}
 #' }
 #'
@@ -18,14 +18,10 @@ image_to_poly <- function(dir, file){
 
   im_st <- stars::read_stars(paste0(dir, "/", file))[,]
   p <-  sf::st_as_sf(im_st, as_points = FALSE, merge = TRUE)
-  values <- sf::st_drop_geometry(p)
-  p <- as(p, "Spatial")
+  colnames(p)[1] <- "value"
+  p.cells <- p[which(p$value>0),]
+  p.cells <- p.cells[which(sf::st_area(p.cells)>10),]
 
-  colnames(p@data) <- "value"
-
-  p.cells <- p[which(p$value!=0),]
-  p.cells <- p.cells[which(rgeos::gArea(p.cells, byid = T)>10),]
-  walls <- p[which(values==0),]
 
   im_st_walls <- im_st[[1]]
   im_st_walls[which(im_st_walls>0)] <- 100
@@ -34,26 +30,20 @@ image_to_poly <- function(dir, file){
 
   man <- imager::cimg2magick(imager::as.cimg(im_st_walls))
   jcn <- man %>%
-   image_flop() %>%
-   image_morphology('Thinning','Skeleton') %>%
-   image_morphology('Thinning','Corners') %>%
-   image_morphology('Thinning','LineEnds', iterations=-1) %>%
-   image_morphology('Thinning','Skeleton') %>%
-   image_morphology('Thinning','Diagonals') %>%
-   image_morphology('Thinning','Corners') %>%
-   image_morphology("HMT","LineJunctions")
-
-
+   magick::image_flop() %>%
+   magick::image_morphology('Thinning','Skeleton') %>%
+   magick::image_morphology('Thinning','Corners') %>%
+   magick::image_morphology('Thinning','LineEnds', iterations=-1) %>%
+   magick:: image_morphology('Thinning','Skeleton') %>%
+   magick:: image_morphology('Thinning','Diagonals') %>%
+   magick::  image_morphology('Thinning','Corners') %>%
+   magick:: image_morphology("HMT","LineJunctions")
 
   jcn_data <- t(matrix(as.integer(jcn[[1]]), nrow=attributes(im_st)$dimensions$y$to))
-  #jcn_data[which(skel==0)] <- 0
 
-
-
-#plot(imager::as.cimg(jcn_points), interpolate = F)
-jcncoords <- setNames(reshape2::melt(jcn_data),c("x","y","val"))
-jcncoords <- jcncoords[which(jcncoords$val!=0 & jcncoords$x<=attributes(im_st)$dimensions$x$to),1:2]
-jcncoords$y <- attributes(im_st)$dimensions$y$to - jcncoords$y
+  jcncoords <- setNames(reshape2::melt(jcn_data),c("x","y","val"))
+  jcncoords <- jcncoords[which(jcncoords$val!=0 & jcncoords$x<=attributes(im_st)$dimensions$x$to),1:2]
+  jcncoords$y <- attributes(im_st)$dimensions$y$to - jcncoords$y
 
   return(list(cells=p.cells, junction_coords=jcncoords) )
 }

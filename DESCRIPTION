@@ -3,33 +3,46 @@ Type: Package
 Title: Characterising 2D Morphology of Leaf Epidermal Cells
 Version: 0.1.0
 Imports:
-  conicfit,
-  fasterize,
-  igraph,
-  maptools,
-  methods,
-  pracma,
-  prevR,
-  raster,
-  Rfast,
-  rgeos,
-  sf,
-  smoothr,
-  sp,
-  spdep,
-  stars
-Author: Matilda Brown
+    conicfit,
+    fasterize,
+    ggplot2,
+    ggpubr,
+    Hmisc,
+    igraph,
+    magick,
+    magrittr,
+    methods,
+    pracma,
+    prevR,
+    progress,
+    raster,
+    Rfast,
+    rgeos,
+    scales,
+    sf,
+    smoothr,
+    spatialreg,
+    spdep,
+    stars
+Authors@R: person("Matilda", "Brown", comment=c(ORCID ="0000-0003-2536-8365")
 Maintainer: Matilda Brown <matilda.brown@utas.edu.au>
-Description: This package contains several functions to extract and describe 
+Description: Several functions to extract and describe and analyse 
   the morphological characteristics of the leaf epidermis. Features include cell 
   angle, number of stomatal rows, undulation index, maximum amplitude of cell 
   wall undulations. Pavement cells can be separated according to how close to 
-  stomata they are. More details can be found in.
+  stomata they are. Also includes functions to evaluate 
+  intra-individual/intra-species variability and calculate optimal sampling effort. 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    imager,
+    dplyr,
+    randomcoloR,
+    tidyr,
+    cowplot,
+    reshape2
 VignetteBuilder: knitr

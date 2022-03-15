@@ -7,7 +7,7 @@
 cell_cell_distances(cells, k)
 }
 \arguments{
-\item{cells}{SpatialPolygonsDataFrame.}
+\item{cells}{\code{sf} object.}
 
 \item{k}{Numeric. The k nearest neighbours to calculate distances to.}
 }

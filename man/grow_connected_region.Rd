@@ -13,7 +13,7 @@ grow_connected_region(
 )
 }
 \arguments{
-\item{cells}{SpatialPolygonsDataFrame of all cells, with edge cells removed.}
+\item{cells}{sf object of all cells, with edge cells removed.}
 
 \item{nb}{Object of class "nb", created from the 'spdep' function \code{poly2nb()}.}
 

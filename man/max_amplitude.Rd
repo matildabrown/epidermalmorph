@@ -7,7 +7,7 @@
 max_amplitude(cell, junction_points)
 }
 \arguments{
-\item{cell}{SpatialPolygon. The cell.}
+\item{cell}{\code{sf} object; the cell.}
 
 \item{junction_points}{Matrix. The x and y coordinates defining the simplified
 cell, as returned by \code{cell.simplify()}}

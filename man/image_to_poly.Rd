@@ -13,7 +13,7 @@ image_to_poly(dir, file)
 
 #' @return A list with components:
 \describe{
-\item{cells}{SpatialPolygonsDataFrame. All cells, with values stored in a 'value' column.}
+\item{cells}{sf MULTIPOLYGON. All cells, with values stored in a 'value' column.}
 \item{junction_coords}{Dataframe with two columns: x and y coordinates of tri-cell junctions.}
 }}
 }

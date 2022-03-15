@@ -1,19 +1,22 @@
 #' Clean up junction point coordinates
 #'
-#' @param wj Coordinates
+#' @param wj Two-column numeric matrix with x and y coordinates of junction points.
+#' @param buffer.width Numeric, the distance within which two cell junctions are
+#' merged. Suggested value: 5 pixels (or equivalent if image is scaled)
 #'
-#' @return Some SpatialPoints
+#' @return \code{sf MULTIPOINT} object of the cleaned junction points
 #'
+#'@export
 
-get_junctions <- function(wj){
+get_junctions <- function(wj, buffer.width){
 
-  wjp <- sp::SpatialPoints(wj)
+  wjp <- sf::st_multipoint(as.matrix(wj))
 
   #CLEAN UP JUNCTIONS
   #remove junctions within 5px of each other
-  wall.nb.dist <- spdep::dnearneigh(wjp, 0,5)
+  wall.nb.dist <- spdep::dnearneigh(wjp, 0,buffer.width)
  # summary(wall.nb.dist)
-  wjpc <- data.frame(wjp@coords)
+  wjpc <- as.data.frame(as.matrix(wjp))
   wjpc$keep <- NA
   for (i in 1:nrow(wjpc)){
     if(wall.nb.dist[[i]][1]==0){
@@ -27,6 +30,6 @@ get_junctions <- function(wj){
     }
   }
 
-  wjp <- sp::SpatialPoints(wjpc[which(wjpc$keep==1),1:2])
+  wjp <- sf::st_multipoint(as.matrix(wjpc[which(wjpc$keep==1),1:2]))
   return(wjp)
 }

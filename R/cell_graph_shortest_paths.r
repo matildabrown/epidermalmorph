@@ -1,23 +1,23 @@
 #' Find the shortest paths between each cell
 #'
-#' @param cells SpatialPolygonsDataFrame.
+#' @param cells \code{sf} object.
+#' @param snap.tolerance Numeric. Value to buffer each cell to identify neighbours.
 #'
 #' @return A matrix with the shortest paths between each cell
-#' @import methods spatialreg
+#' @import methods spatialreg sf
 #'
+#' @export
 
 
-cell_graph_shortest_paths <- function(cells){
+cell_graph_shortest_paths <- function(cells, snap.tolerance){
 
-
-boundaries <- cells
-nb_q <- spdep::poly2nb(boundaries, snap=5)
-
-nb_B <- spdep::nb2listw(nb_q, style="B", zero.policy=TRUE)
-B <- as(nb_B, "symmetricMatrix")
-g1 <- igraph::graph.adjacency(B, mode="undirected")
-sp_mat <- igraph::shortest.paths(g1)
-return(sp_mat)
+  boundaries <- sf::st_buffer(cells, snap.tolerance)
+  x <- sf::st_intersects(boundaries)
+  m = data.frame(row.id=rep(seq_along(x), lengths(x)), col.id=unlist(x))
+  g <- igraph::graph_from_data_frame(m, directed = F)
+  sp_mat <- igraph::shortest.paths(g)
+  return(sp_mat)
 }
+
 
 

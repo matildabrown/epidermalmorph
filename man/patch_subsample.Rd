@@ -10,7 +10,10 @@ patch_subsample(
   k.pavement = NULL,
   k.stomata = NULL,
   plot.patch = FALSE,
-  seed = NULL
+  seed = NULL,
+  stom.val = 85,
+  subs.val = 170,
+  pave.val = 255
 )
 }
 \arguments{
@@ -26,6 +29,12 @@ patch_subsample(
 
 \item{seed}{Numeric. For reproducibility, the starting cell can be set using
 this argument.}
+
+\item{stom.val}{Numeric vector of length 1. The value of stomatal cells (guard cells + pore)}
+
+\item{subs.val}{Numeric vector of length 1. The value of subsidiary cells}
+
+\item{pave.val}{Numeric vector of length 1. The value of pavement cells}
 }
 \value{
 A numeric vector containing the indices of the sampled polygons

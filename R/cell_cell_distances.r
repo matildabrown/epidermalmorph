@@ -1,6 +1,6 @@
 #' Find the mean distance to k nearest neighbours
 #'
-#' @param cells SpatialPolygonsDataFrame.
+#' @param cells \code{sf} object.
 #' @param k Numeric. The k nearest neighbours to calculate distances to.
 #'
 #' @return
@@ -16,10 +16,10 @@
 
 cell_cell_distances <- function(cells, k){
 
-cellsdist <- rgeos::gDistance(cells, byid=T)
+cellsdist <- sf::st_distance(cells, byid=T)
 k.length=length(k)
 
-for (j in 1:length(cells)){
+for (j in 1:nrow(cells)){
   cellsdist[j,j] <- 10^10
 }
 
@@ -28,7 +28,7 @@ if (k.length==1) {
 }
 
 if (k.length>1) {
-mindist=matrix(nrow=length(cells), ncol=k.length)
+mindist=matrix(nrow=nrow(cells), ncol=k.length)
 for (i in 1:length(k)){
   k.i <- k[i]
 
