@@ -43,7 +43,7 @@ For analysis with `epidermalmorph`, images need to be segmented (or traced). Thi
 </center>
 
 Our cell walls are black (value of 0), stomata are dark grey (85), subsidiary 
-cells are light grey (170) and pavement cells are white (255). 
+cells are light grey (170) and pavement cells are white (255). This can be done using straightforward software (e.g. ImageJ, MS Paint) - the important thing is that there is no anti-aliasing applied. 
 
 ## Extracting cell measurements
 ### The `image_to_poly()` function
@@ -75,7 +75,7 @@ load("p1.Rdata")
 print(p1)
 
 ```
-We can also check that the cell types have been preserved: 
+We can also check that the cell types (as values) have been preserved during the conversion from pixels to polygons: 
 ```{r eval=FALSE}
 #simplify palette to cell types
 palette <- c("#A30B37", "#bd6b73", "#bbb6df")
@@ -190,7 +190,7 @@ load("df_all.RData")
 ```
 
 
-For now, we just want to compare the overall measurements, so we'll bind the first element of each list together, and scale our trait measurements so that they can be be compared (I'm saving the global means and standard deviations to be used later): 
+For now, we just want to compare the overall measurements, so we'll bind the first element of each list together, and scale our trait measurements so that they can be be compared (we're saving the global standard deviations to be used later): 
 ```{r}
 df_im <- do.call(rbind,lapply(df_all,"[[",1))
 

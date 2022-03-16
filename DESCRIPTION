@@ -1,7 +1,7 @@
 Package: epidermalmorph
 Type: Package
 Title: Characterising 2D Morphology of Leaf Epidermal Cells
-Version: 0.1.0
+Version: 1.0.0
 Imports:
     conicfit,
     fasterize,
