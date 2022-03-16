@@ -36,14 +36,14 @@ Here is an example of an unprocessed (raw) image of a cuticle preparation cuticl
 ![](images/raw_im.png){width=60%}
 </center>
 
-For analysis with `epidermalmorph`, images need to be segmented (or traced). This can be done manually or with some degree of automation, but requires cell wall pixels to be black (value of 0). Other cell types can be labelled by using different values (colours). Here is what that might look like: 
+For analysis with `epidermalmorph`, images need to be segmented (or traced). This can be done manually (e.g. using the paint tool from ImageJ, MS Paint) or with some degree of automation, but requires cell wall pixels to be black (value of 0) and **no anti-aliasing** to be applied (i.e., the edges of the pixels should be crisp). Other cell types can be labelled by using different values (colours). Here is what that might look like: 
 
 <center>
 ![](images/traced_im.png){width=60%}
 </center>
 
 Our cell walls are black (value of 0), stomata are dark grey (85), subsidiary 
-cells are light grey (170) and pavement cells are white (255). This can be done using straightforward software (e.g. ImageJ, MS Paint) - the important thing is that there is no anti-aliasing applied. 
+cells are light grey (170) and pavement cells are white (255).  
 
 ## Extracting cell measurements
 ### The `image_to_poly()` function
@@ -287,7 +287,7 @@ load("df.RData")
 
 If we were analysing multiple images, we would then bind the rows for each image into one data.frame (we have kept these two functions separate to facilitate parallel execution). 
 
-Then, we can evaluate how each trait measurement varies over different sample sizes by plotting the standard deviation of sampled measurements against the number of relevant cells (see Brown , 2022 for details). 
+Then, we can evaluate how each trait measurement varies over different sample sizes by plotting the standard deviation of sampled measurements against the number of relevant cells (see Brown, 2022 for details). 
 
 Points in the grey represent trait-sample combinations that are above the user-defined threshold (here, 20% of the global variation)
 ```{r fig.dim=c(6,14)}
