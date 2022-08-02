@@ -1,8 +1,8 @@
 #' Find the number of stomatal rows
 #'
-#' @param cells SpatialPolygonsDataFrame, containing all cell polygons (i.e. not
-#'  just the stomatal polygons). The specific colour of the stomata is irrelevant,
-#'  but they should be the second-lowest value.
+#' @param cells A `sf` object containing all cell polygons (i.e. not
+#'  just the stomatal polygons).
+#'@param stom.val Numeric. The value (colour) of stomata.
 #'
 #' @return A list with components:
 #' \describe{
@@ -16,20 +16,22 @@
 #'
 #' @details This function assumes that the pixels are coloured in the following order
 #' (darkest to lightest): wall, stomate, subsidiary, pavement. To calculate
-#' \code{row.wiggliness}, principal components analysis was computed for the
-#' stomatal pixels in each row. The value \code{row.wiggliness} is the range
-#' of PC2; it is recommended that this value be standardised based on stomatal
-#'  complex width, to account for stomatal size variability.
+#' \code{row.wiggliness}, the major axis of the stomatal row is determined using
+#' principal components, where PC1 is the main axis of the row and PC2 is the vertical
+#' offset of each stomata from this axis. The value \code{row.wiggliness} is the
+#' proportion of variation explained by PC2; a value close to 0 means that
+#' stomata are perfectly aligned; a value close to 0.5 means that stomatal rows
+#' are variable or wiggly in alignment. Values cannot exceed 0.5.
 #'
 #'  @import stats
 #'
 #' @export
 
-number_rows_stomata <- function(cells) {
+number_rows_stomata <- function(cells, stom.val) {
 #NUMBER OF STOMATAL ROWS
   boundbox <- sf::st_bbox(cells)
 r <- raster::raster(xmn=boundbox[1], xmx=boundbox[3], ymn=boundbox[2], ymx=boundbox[4])
-imstom <- fasterize::fasterize(cells,r, background=0, field=colnames(cells)[1])
+suppressWarnings(imstom <- fasterize::fasterize(sf::st_collection_extract(cells, "POLYGON"),r, background=0, field=colnames(cells)[1]))
 
 t <- table(raster::values(imstom))
 

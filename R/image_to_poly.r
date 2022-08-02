@@ -3,7 +3,7 @@
 #' @param dir String. Directory for images.
 #' @param file String. File name.
 #'
-#'#' @return A list with components:
+#' @return A list with components:
 #' \describe{
 #' \item{cells}{sf MULTIPOLYGON. All cells, with values stored in a 'value' column.}
 #' \item{junction_coords}{Dataframe with two columns: x and y coordinates of tri-cell junctions.}
@@ -20,7 +20,7 @@ image_to_poly <- function(dir, file){
   p <-  sf::st_as_sf(im_st, as_points = FALSE, merge = TRUE)
   colnames(p)[1] <- "value"
   p.cells <- p[which(p$value>0),]
-  p.cells <- p.cells[which(sf::st_area(p.cells)>10),]
+  p.cells <- sf::st_make_valid(p.cells[which(sf::st_area(p.cells)>10),])
 
 
   im_st_walls <- im_st[[1]]

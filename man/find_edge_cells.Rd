@@ -24,7 +24,7 @@ Defaults to \code{get.edges.from} (i.e. finds which cells of
 }
 \value{
 A list with two components.
-#' \describe{
+ \describe{
 \item{edge}{Numeric. Vector containing the indices of all edge get.edges.from.}
 \item{lose}{Numeric. Vector containing the indices of all get.edges.from on the
             bottom or right-hand edge.}

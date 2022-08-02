@@ -4,7 +4,7 @@
 #' @param snap.tolerance Numeric. Value to buffer each cell to identify neighbours.
 #'
 #' @return A matrix with the shortest paths between each cell
-#' @import methods spatialreg sf
+#' @import methods sf
 #'
 #' @export
 

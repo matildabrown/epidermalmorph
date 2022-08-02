@@ -1,7 +1,7 @@
 #' Estimate trait reliability
 #'
-#' @param x A data.frame with the trait measurements and grouping variable.
-#' Names of traits should be the same as those produced by \code{extract_epidermal_traits()}
+#' @param x A data.frame with the trait measurements and grouping variable (species or individual).
+#' Names of variables should be the same as those produced by \code{extract_epidermal_traits()}
 #' @param grouping.variable Character. Name of the column used to group images (e.g.
 #' individual, species)
 #' @param heatmap Logical. Plot a heatmap of trait reliability? Defaults to FALSE.

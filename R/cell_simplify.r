@@ -11,7 +11,7 @@
 #' @export
 
 
-cell.simplify <- function(cell, cell.junctions, snap.tolerance){
+cell_simplify <- function(cell, cell.junctions, snap.tolerance){
 
   #get centroid
   centroid <- suppressWarnings( sf::st_centroid(cell) )

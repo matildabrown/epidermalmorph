@@ -1,4 +1,4 @@
-#' Find the endwall (furthest left and right) angles of cells
+#' Find the endwall angles of cells
 #'
 #' @description
 #' For a set of junction points that describe a simplified cell, this function
@@ -9,7 +9,7 @@
 #'the polygon. The first and last points are the same (i.e. the line formed by
 #'the points is closed).
 #'@return A list with the following components:
-#'#' \describe{
+#'  \describe{
 #' \item{slope1}{The slope of the leftmost endwall. Useful for plotting. }
 #' \item{slope2}{The slope of the rightmost endwall.}
 #' \item{angle1}{The angle of the leftmost endwall. Useful for analysis. }
@@ -17,9 +17,14 @@
 #' \item{points1}{The points defining the leftmost endwall.}
 #' \item{points2}{The points defining the rightmost endwall.}
 #' }
-#' @details The \code{angle} outputs have been transformed to be within -90 and
-#'  90, so that the distribution is approximately normal around 0.
-#'  @export
+#' @details The endwalls are defined as the cell walls that define the length of
+#' the cell along the leaf axis (i.e. stomatal north). Note that this trait is only
+#' truly applicable to species that have broadly rectangular or polygonal cells
+#' AND where the leaf axis is known (or can be identified from the image, i.e.
+#' stomatal north). The \code{angle} outputs have been transformed to be within
+#' -90 and 90, so that the distribution is centred on 0.
+#'
+#'@export
 
 
 
@@ -40,6 +45,7 @@ endwall_angles <- function(junction_points){
 
   slope1 <- atan(s1)
   if(slope1<0) slope1 <-pi+slope1
+  slope1 <- pracma::rad2deg(slope1)
 
   endpoint2.1 <- which.max(junction_points[,1])
   if(endpoint2.1-1==0) endpoint2.2 <- c(endpoint2.1+1, (nrow(junction_points)-1))[which.max(junction_points[c(endpoint2.1+1, (nrow(junction_points)-1)),1])]
@@ -55,6 +61,8 @@ endwall_angles <- function(junction_points){
 
   slope2 <- atan(s2)
   if(slope2<0) slope2 <-pi+slope2
+
+  slope2 <- pracma::rad2deg(slope2)
 
 
   return(list(slope1=s1,slope2=s2,angle1=slope1,angle2=slope2,

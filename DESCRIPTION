@@ -1,8 +1,9 @@
 Package: epidermalmorph
 Type: Package
 Title: Characterising 2D Morphology of Leaf Epidermal Cells
-Version: 1.0.0
+Version: 1.1.0
 Imports:
+    cli,
     conicfit,
     fasterize,
     ggplot2,
@@ -13,7 +14,6 @@ Imports:
     magrittr,
     methods,
     pracma,
-    prevR,
     progress,
     raster,
     Rfast,
@@ -21,7 +21,6 @@ Imports:
     scales,
     sf,
     smoothr,
-    spatialreg,
     spdep,
     stars
 Authors@R: person("Matilda", "Brown",role=c("aut","cre"), email="matilda.brown@utas.edu.au", comment=c(ORCID ="0000-0003-2536-8365"))
@@ -31,17 +30,17 @@ Description: Several functions to extract and describe and analyse
   wall undulations. Pavement cells can be separated according to how close to 
   stomata they are. Also includes functions to evaluate 
   intra-individual/intra-species variability and calculate optimal sampling effort. 
-License: GPL-3
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Suggests: 
     rmarkdown,
     knitr,
     imager,
-    dplyr,
     randomcoloR,
     tidyr,
     cowplot,
-    reshape2
+    reshape2,
+    dplyr
 VignetteBuilder: knitr

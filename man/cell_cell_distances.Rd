@@ -7,15 +7,16 @@
 cell_cell_distances(cells, k)
 }
 \arguments{
-\item{cells}{\code{sf} object.}
+\item{cells}{\code{sf} object. Does not have to include intermediate cells (e.g.
+for stomata, can be stomatal cells only).}
 
 \item{k}{Numeric. The k nearest neighbours to calculate distances to.}
 }
 \value{
 If \code{k} is a single value, returns a vector of same length as
-\code{cells}, containing the distance (in pixels) between each cell and its
+\code{cells}, containing the distance (in pixels, microns etc, depending on image scale) between each cell and its
 kth nearest neighbour. If \code{k} is a vector, returns a matrix with
-\code{length(k)} variables, with the distance (in pixels) from each
+\code{length(k)} variables, with the distance from each
 cell to its nearest k neighbours.
 }
 \description{

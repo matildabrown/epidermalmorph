@@ -8,7 +8,7 @@
 #' @param rotated Numeric. The angle (in degrees) that the image has been rotated. Defaults to NULL.
 #'
 #' @return A list with two components.
-#' #' \describe{
+#'  \describe{
 #' \item{edge}{Numeric. Vector containing the indices of all edge get.edges.from.}
 #' \item{lose}{Numeric. Vector containing the indices of all get.edges.from on the
 #'             bottom or right-hand edge.}

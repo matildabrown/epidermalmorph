@@ -49,7 +49,7 @@ cells are light grey (170) and pavement cells are white (255).
 ### The `image_to_poly()` function
 Before we can measure cells, they need to be transformed from pixels to polygons:
 ```{r eval=FALSE}
-polys1.1 <- image_to_poly(dir='.', file="traced_image.tif")
+polys1.1 <- image_to_poly(dir='images', file="traced_im.png")
 ```
 ```{r echo=FALSE}
 load("polys1-1.RData")
@@ -84,7 +84,6 @@ ggplot()+
   geom_sf(data=polys1.1$cells, col="black", fill=palette[factor(polys1.1$cells$value)])+
   theme_void()
 
-
 ```
 ```{r echo=FALSE,  fig.dim = c(7,6)}
 load("p2.Rdata")
@@ -100,11 +99,11 @@ Now we can extract the measurements from it:
 traits1.1 <- extract_epidermal_traits(image.ID = "Image1.1", 
                                       cell.polygons=polys1.1$cells, 
                                       junction.points=polys1.1$junction_coords, 
-                                      cells.present = c("pavement", "stomata", 
-                                                       "subsidiary"), 
-                                      cell.values=c(255,85,170), 
+                                      cells.present = c("pavement", "stomata","subsidiary"), 
+                                      wall.width = 3, 
+                                      cell.values=c(255,85, 170), 
                                       sd.measures = FALSE, #no variability traits
-                                      image.scale = 2.954,  verbose=TRUE,) 
+                                      image.scale = NULL,  verbose=TRUE) 
 #this can take up to around 10 minutes per image
 
 ```
@@ -123,6 +122,10 @@ load("traits1.1.RData")
 * `polygons` the `sf` polygons of the cells (removed here to reduce vignette size)
 ```{r}
 dplyr::glimpse(traits1.1$image_data)
+```
+For a full description of all traits, we can refer to `trait_key`:
+```{r}
+head(trait_key)
 ```
 
 
@@ -156,17 +159,17 @@ library(doParallel)
 library(foreach)
 
 #names for ID column - the file names of the images
-names <- c("Acmopyle_pancheri_1_1.tif",
-           "Acmopyle_pancheri_1_2.tif",
+names <- c("Acmopyle_pancheri_1.tif",
+           "Acmopyle_pancheri_2.tif",
            "Acmopyle_pancheri_1_3.tif",
-           "Podocarpus_dispermus_1_1.tif",
-           "Podocarpus_dispermus_1_2.tif",
-           "Podocarpus_dispermus_1_3.tif",
-           "Sundacarpus_amarus_1_1.tif",
-           "Sundacarpus_amarus_1_2.tif",
-           "Sundacarpus_amarus_1_3.tif")
+           "Podocarpus_dispermus_1.tif",
+           "Podocarpus_dispermus_2.tif",
+           "Podocarpus_dispermus_3.tif",
+           "Sundacarpus_amarus_1.tif",
+           "Sundacarpus_amarus_2.tif",
+           "Sundacarpus_amarus_3.tif")
 
-cl = makeCluster(6)
+cl = makeCluster(3)
 registerDoParallel(cl)
 
 

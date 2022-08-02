@@ -20,3 +20,7 @@ localMaxima <- function(x) {
 }
 
 
+kthsmallest <- function(x,k){
+  x[order(x)][k]
+}
+

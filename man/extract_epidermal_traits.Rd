@@ -10,15 +10,19 @@ extract_epidermal_traits(
   junction.points,
   cells.present = c("pavement", "stomata", "subsidiary"),
   cell.values,
+  paired.guard.cells = FALSE,
   NA.value = NULL,
   image.scale = NULL,
+  image.alignment = "horizontal",
+  stomatal.north = NULL,
+  wall.width = 3,
   stomatal.shape = TRUE,
   stomatal.arrangement = TRUE,
   sd.measures = TRUE,
   specific.inclusions = NULL,
   specific.exclusions = NULL,
   sd.as.percent.of.mean = FALSE,
-  verbose = FALSE
+  verbose = TRUE
 )
 }
 \arguments{
@@ -39,37 +43,64 @@ types of cells present. Defaults to \code{c("pavement", "stomata",
 \item{cell.values}{A vector containing the values of all the types of cells
 present (usually numeric), see details.}
 
+\item{paired.guard.cells}{Logical. Are guard cells annotated individually (TRUE), or as a single unit (FALSE)?
+Defaults to FALSE.}
+
 \item{NA.value}{A vector of length 1, with the value for NA regions of the
-image (e.g. damaged or un-traced regions)}
+image (e.g. damaged or un-traced regions).}
 
 \item{image.scale}{Numeric. The number of pixels per micron (or any other unit -
 measurements will be returned in this unit). Defaults to NULL (measurements
-in pixels)}
+in pixels).}
 
-\item{stomatal.shape}{Logical. Include measurements of stomatal shape?
+\item{image.alignment}{Character. The (general) axis of the image on the leaf.
+If "horizontal" (default), stomatal north is calculated around 0. If the image
+is vertically aligned, use "vertical" so that stomata are measured around the 90
+degree axis. If stomata are randomly aligned and/or the leaf axis is unknown,
+this can be set to "none".}
+
+\item{stomatal.north}{Numeric.  The (precise) angle of rotation of the image on the leaf.
+If NULL (the default), stomatal north is calculated from the angles of all stomata.
+If stomata are randomly aligned, set to 0.
+If rotation is known, can be set to the clockwise angle (in degrees) that image is to be rotated.
+In some cases, it might be useful to set this to 'pavement north' (mean angle
+of pavement cells) and traits re-extracted.}
+
+\item{wall.width}{Numeric. How many pixels wide are the cell walls? Only
+used for identifying neighbours; defaults to 3. Note: width is before scaling;
+can be increased for a more generous buffer (i.e. more inclusive in finding
+neighbours).}
+
+\item{stomatal.shape}{Logical. Include measurements of stomatal shape
+(`nsubcells,subsarea,gclength,AR,butterfly,symmetry`); defaults to TRUE.
 Defaults to TRUE, see details.}
 
 \item{stomatal.arrangement}{Logical. Include measurements of stomatal
-arrangement? Defaults to TRUE, see details.}
+arrangement (`dist.between.stom.rows, row.consistency, row.wiggliness,stom.angle.sd, stom.distNN, stom.dist2NN, stom.spacingNN`);
+defaults to TRUE, see Details.}
 
-\item{sd.measures}{Logical. Return standard deviation of variables?
-Defaults to TRUE, see details.}
+\item{sd.measures}{Logical. Return standard deviation of variables? This
+argument controls the measurement of variability of traits within an
+image; it is only recommended to use this when a) the sample size is
+high, or b) there is strong indication that these traits are useful.
+ Defaults to FALSE.}
 
 \item{specific.inclusions}{Character. Cell measurements to include;
-see details for options.}
+see Details for options.}
 
 \item{specific.exclusions}{Character. Cell measurements to exclude;
-see details for options.}
+can be passed as key words (e.g. "AR", "undulation", "pavezone").}
 
 \item{sd.as.percent.of.mean}{Logical. Should variability measures be
 presented as percentage of the mean? Defaults to FALSE.}
 
 \item{verbose}{Logical. Should progress output be printed in the console?
-Defaults to FALSE.}
+Defaults to TRUE.}
 }
 \value{
 A list of length three, containing a vector with whole-image values,
 a data.frame of pavement cell values and a data.frame of stomatal values.
+Variables are coded as 'celltype.trait.statistic' (e.g. `pavezone.area.sd`).
 }
 \description{
 This function extracts various epidermal traits from an image that has been converted to \code{sf} polygons
@@ -84,6 +115,14 @@ measurements will be taken for these cell types (index, density, area,
 spacing and distance to nearest neighbour). If only a subset of variables is
 desired, this can can be set using the arguments \code{ stomatal.shape,
 stomatal.arrangement, pavement.cells, sd.measures, specific.inclusions,
-specific.exclusions}. For a full list of variables and
-graphical descriptions of what they measure, see the vignette.
+specific.exclusions}. Pavement cells are designated as `polar` (if touching
+the guard cells; we acknowledge that this is not the most universal term for
+possible subsidiary cells but lack an alternative), `stomzone` (for cells that
+are exactly two neightbours from the guard cells and are likely to be distorted)
+and `pavezone` (cells that are >2 neighbours from the guard cells and are
+thus unlikely to be distorted).
+
+For a full list of variables and descriptions of what they measure,
+see the data `trait_key`, the corresponding paper (for graphical descriptions),
+and the vignettes.
 }

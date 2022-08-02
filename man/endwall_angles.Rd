@@ -2,7 +2,7 @@
 % Please edit documentation in R/endwall_angles.r
 \name{endwall_angles}
 \alias{endwall_angles}
-\title{Find the endwall (furthest left and right) angles of cells}
+\title{Find the endwall angles of cells}
 \usage{
 endwall_angles(junction_points)
 }
@@ -13,7 +13,7 @@ the points is closed).}
 }
 \value{
 A list with the following components:
-#' \describe{
+ \describe{
 \item{slope1}{The slope of the leftmost endwall. Useful for plotting. }
 \item{slope2}{The slope of the rightmost endwall.}
 \item{angle1}{The angle of the leftmost endwall. Useful for analysis. }
@@ -28,7 +28,10 @@ extracts the left-most wall and the right-most wall and calculates their
 slope and bearing (in radians).
 }
 \details{
-The \code{angle} outputs have been transformed to be within -90 and
- 90, so that the distribution is approximately normal around 0.
- @export
+The endwalls are defined as the cell walls that define the length of
+the cell along the leaf axis (i.e. stomatal north). Note that this trait is only
+truly applicable to species that have broadly rectangular or polygonal cells
+AND where the leaf axis is known (or can be identified from the image, i.e.
+stomatal north). The \code{angle} outputs have been transformed to be within
+-90 and 90, so that the distribution is centred on 0.
 }

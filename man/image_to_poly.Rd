@@ -9,13 +9,14 @@ image_to_poly(dir, file)
 \arguments{
 \item{dir}{String. Directory for images.}
 
-\item{file}{String. File name.
-
-#' @return A list with components:
+\item{file}{String. File name.}
+}
+\value{
+A list with components:
 \describe{
 \item{cells}{sf MULTIPOLYGON. All cells, with values stored in a 'value' column.}
 \item{junction_coords}{Dataframe with two columns: x and y coordinates of tri-cell junctions.}
-}}
+}
 }
 \description{
 Convert image to SpatialPolygons

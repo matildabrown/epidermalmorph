@@ -12,8 +12,8 @@ epidermal_trait_reliability(
 )
 }
 \arguments{
-\item{x}{A data.frame with the trait measurements and grouping variable.
-Names of traits should be the same as those produced by \code{extract_epidermal_traits()}}
+\item{x}{A data.frame with the trait measurements and grouping variable (species or individual).
+Names of variables should be the same as those produced by \code{extract_epidermal_traits()}}
 
 \item{grouping.variable}{Character. Name of the column used to group images (e.g.
 individual, species)}

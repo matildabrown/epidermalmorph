@@ -1,10 +1,4 @@
-#' Generate 1:4 colours of in a particular colour family
-#'
-#' @param x Number of colours (must be between 1 and 4)
-#'
-#' @return Character vector with colour names as hex values
-#'
-#'
+
 nblue <- function(x){
   if(x==1) return("#0078D2")
   if(x==2) return(c("#004d88","#0090fe"))
