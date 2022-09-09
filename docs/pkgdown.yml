@@ -1,0 +1,8 @@
+pandoc: 2.17.1.1
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  introduction-to-epidermalmorph: introduction-to-epidermalmorph.html
+  measuring-different-morphologies: measuring-different-morphologies.html
+last_built: 2022-09-09T14:49Z
+
