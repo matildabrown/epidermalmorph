@@ -42,5 +42,6 @@ Suggests:
     tidyr,
     cowplot,
     reshape2,
-    dplyr
+    dplyr,
+    factoextra
 VignetteBuilder: knitr

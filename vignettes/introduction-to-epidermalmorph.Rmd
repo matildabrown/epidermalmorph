@@ -33,13 +33,13 @@ library(tidyr)
 Here is an example of an unprocessed (raw) image of a cuticle preparation cuticle of *Podocarpus*, taken using a microscope:
 
 <center>
-![](images/raw_im.png){width=60%}
+![](raw_im.png){width=60%}
 </center>
 
 For analysis with `epidermalmorph`, images need to be segmented (or traced). This can be done manually (e.g. using the paint tool from ImageJ, MS Paint) or with some degree of automation, but requires cell wall pixels to be black (value of 0) and **no anti-aliasing** to be applied (i.e., the edges of the pixels should be crisp). Other cell types can be labelled by using different values (colours). Here is what that might look like: 
 
 <center>
-![](images/traced_im.png){width=60%}
+![](traced_im.png){width=60%}
 </center>
 
 Our cell walls are black (value of 0), stomata are dark grey (85), subsidiary 
@@ -149,7 +149,7 @@ for (i in 1:9){
 
 cowplot::plot_grid(plotlist=p, nrow=3)
 ```
-![](images/p3.png){width=100%}
+![](p3.png){width=100%}
 
 Now we can extract the traits. There is no parallel implementation in `epidermalmorph`, but we suggest extracting traits from multiple images in parallel, like so: 
 
