@@ -13,10 +13,9 @@ devtools::install_github("matildabrown/epidermalmorph")
 ```
 
 ## Usage 
-See the vignette for an example workflow:
+See the articles for examples and workflows:
+https://matildabrown.github.io/epidermalmorph/articles/introduction-to-epidermalmorph.html
+https://matildabrown.github.io/epidermalmorph/articles/measuring-different-morphologies.html
 
-```
-vignette("introduction-to-epidermalmorph")
-```
 
 
