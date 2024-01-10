@@ -477,6 +477,7 @@ if("stomata" %in% cells.present){
     if("subsidiary" %in% cells.present) {
     list.element =  which(rownames(stom_df) == as.character(cell_df_stom$ID)[j])
     subs_j <- subs[as.character(SUBS[[list.element]]),]
+      stom_comp_j <- rbind(stom_j, subs_j[,-5])
     } else {
       stom_comp_j <- stom_j
     }
