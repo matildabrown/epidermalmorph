@@ -57,7 +57,7 @@ subsampling_feature_extraction <- function(sampled_polygons, sampled_data) {
   dat_im["n.polar"] <- nrow(dat_polar)
 
   dat_im["stomatal.index"] <- nrow(dat_stom)/(nrow(dat_pave)+nrow(dat_stz)+nrow(dat_polar))
-  dat_im["stomatal.density.px2"] <- nrow(dat_stom)/rgeos::gArea(sampled_polygons, byid = FALSE)
+  dat_im["stomatal.density.px2"] <- nrow(dat_stom)/sf::st_area(sampled_polygons, byid = FALSE)
 
   # There is a bug in the rasterize() function called by number_rows_stomata() so I am skipping them for now
   stomatal_rows <- number_rows_stomata(sampled_polygons)
@@ -82,7 +82,7 @@ subsampling_feature_extraction <- function(sampled_polygons, sampled_data) {
   dat_im["var.stom.stom.dist"] <- var(sampled_polygons@data$dist_from_stom[which(sampled_polygons@data[,1]==85)])
 
   dat_im["stom.nsubcells.mean"] <- nrow(sampled_polygons@data[which(sampled_polygons$lose==0 & sampled_polygons@data[,1]==170),])/nrow(sampled_polygons@data[which(sampled_polygons$lose==0 & sampled_polygons@data[,1]==85),])
-  dat_im["stom.subsarea.mean"] <- rgeos::gArea(sampled_polygons[which(sampled_polygons@data[,1]==170),])/length(sampled_polygons[which(sampled_polygons@data[,1]==85),])
+  dat_im["stom.subsarea.mean"] <- sf::st_area(sampled_polygons[which(sampled_polygons@data[,1]==170),])/length(sampled_polygons[which(sampled_polygons@data[,1]==85),])
 
   dat_im["stom.gclength.mean"] <-  mean(dat_stom$gclength, na.rm=T)
   dat_im["stom.gclength.sd"] <- sd(dat_stom$gclength, na.rm=T)

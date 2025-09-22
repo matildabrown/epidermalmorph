@@ -1,7 +1,7 @@
 Package: epidermalmorph
 Type: Package
 Title: Characterising 2D Morphology of Leaf Epidermal Cells
-Version: 1.1.0
+Version: 1.1.1
 Imports:
     cli,
     conicfit,
@@ -17,7 +17,6 @@ Imports:
     progress,
     raster,
     Rfast,
-    rgeos,
     scales,
     sf,
     smoothr,
@@ -33,7 +32,7 @@ Description: Several functions to extract and describe and analyse
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.3.2
 Suggests: 
     rmarkdown,
     knitr,
